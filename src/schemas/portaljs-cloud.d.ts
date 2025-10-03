@@ -10,6 +10,7 @@ export interface PortalJsCloudDataset {
   author?: string;
   author_email?: string;
   maintainer?: string;
+  url?: string;
   maintainer_email?: string;
   language: "EN" | "FR" | "ES" | "DE" | "IT";
   coverage?: string;
@@ -19,6 +20,8 @@ export interface PortalJsCloudDataset {
   is_version_of?: string;
   contact_point?: string;
   resources?: CkanResource[];
+  license_url?: string;
+  extras?: Array<{ key: string; value: string }>;
 }
 
 export interface CkanResource {
