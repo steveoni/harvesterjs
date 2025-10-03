@@ -6,7 +6,9 @@ import { Harvester } from ".";
 import { getAllDatasets } from "../lib/ckan";
 
 @Harvester
-class CkanHarvester<SourceDatasetT extends CkanPackage = CkanPackage> extends BaseHarvester<SourceDatasetT> {
+class CkanHarvester<
+  SourceDatasetT extends CkanPackage = CkanPackage
+> extends BaseHarvester<SourceDatasetT> {
   constructor(args: BaseHarvesterConfig) {
     super(args);
   }
@@ -28,7 +30,7 @@ class CkanHarvester<SourceDatasetT extends CkanPackage = CkanPackage> extends Ba
       resources: (pkg.resources || []).map((r: any) => ({
         name: r.name,
         url: r.url,
-        format: r.format
+        format: r.format,
       })),
 
       language: pkg.language || "EN",

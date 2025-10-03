@@ -14,7 +14,8 @@ export type BaseHarvesterConfig = {
 };
 
 export abstract class BaseHarvester<
-  SourceDatasetT extends { [k: string]: string } = any
+  SourceDatasetT extends { [k: string]: string } = any,
+  TargetDatasetT extends PortalJsCloudDataset = PortalJsCloudDataset
 > {
   protected config: BaseHarvesterConfig;
 
@@ -23,14 +24,12 @@ export abstract class BaseHarvester<
   }
 
   abstract getSourceDatasets(): Promise<SourceDatasetT[]>;
-  abstract mapSourceDatasetToTarget(
-    dataset: SourceDatasetT
-  ): PortalJsCloudDataset;
+  abstract mapSourceDatasetToTarget(dataset: SourceDatasetT): TargetDatasetT;
 
   async getTargetPreexistingDatasets(): Promise<string[]> {
     return await getDatasetList();
   }
-  async upsertIntoTarget({ dataset }: { dataset: PortalJsCloudDataset }) {
+  async upsertIntoTarget({ dataset }: { dataset: TargetDatasetT }) {
     return await upsertDataset({
       dataset,
       dryRun: this.config.dryRun,
