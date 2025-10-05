@@ -20,7 +20,7 @@ class LincolnshireHarvester extends CkanHarvester {
       title: pkg.title,
       notes: pkg.notes || "no description",
       language: pkg.language || "EN",
-      tag_string: pkg.tags?.map((t: any) => t.name).join(", "),
+      tags: pkg.tags?.map((t: any) => ({ name: t.display_name || t.name })),
       license_id: pkg.license_id,
       version: pkg.version,
       author: pkg.author,
@@ -49,7 +49,6 @@ class LincolnshireHarvester extends CkanHarvester {
       num_resources: pkg?.num_resources,
       creator_user_id: pkg?.creator_user_id,
       revision_id: pkg?.revision_id,
-      tags: pkg?.tags,
       groups: pkg?.groups,
       organization: pkg?.organization,
       relationships_as_object: pkg?.relationships_as_object,
@@ -58,8 +57,7 @@ class LincolnshireHarvester extends CkanHarvester {
 
     if (pkg.resources?.length) {
       extraFields.resources_extended = pkg.resources.map((r: any) => ({
-        id: r.id,
-        package_id: r.package_id,
+        name: r.name,
         hash: r.hash,
         mimetype: r.mimetype,
         datastore_active: r.datastore_active,
